@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  # 연구자 1: 모델 학습을 수행하고 종료됨
+  researcher-1:
+    build: ./researcher1
+    image: chung2000/researcher-1:v1  # Docker Hub 업로드용 태그
+    container_name: res1-training
+    volumes:
+      - ./data:/app/data  # 호스트의 data 폴더를 컨테이너 내부 /app/data와 공유
+
+  # 연구자 2: Jupyter Notebook을 띄워서 추론 작업 수행
+  researcher-2:
+    image: jupyter/scipy-notebook:python-3.9.13 # 호환되는 Python 버전 사용
+    container_name: res2-inference
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./data:/home/jovyan/work/data  # 공유된 데이터를 Jupyter 작업 폴더로 마운트
+    environment:
+      - JUPYTER_TOKEN=codeit  # 접속 비밀번호 설정
+    command: start-notebook.sh --NotebookApp.token='codeit'

@@ -1,0 +1,14 @@
+pandas
+numpy
+pillow
+Pillow
+timm
+
+streamlit
+#streamlit-drawable-canvas
+
+torch
+transformers
+huggingface_hub[hf_xet]
+qwen-vl-utils
+accelerate
